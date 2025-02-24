@@ -24,10 +24,12 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { SidebarTrigger } from "../ui/sidebar";
+import { SidebarTrigger, useSidebar } from "../ui/sidebar";
 import { LanguageSwitcher } from "../ui/LanguageSwitcher";
+import { AvatarImage } from "@radix-ui/react-avatar";
 
 export default function Header() {
+  const { open } = useSidebar();
   return (
     <header className="supports-backdrop-blur:bg-sidebar/60 fixed  z-50 w-full border-b bg-white shadow-lg backdrop-blur h-[4rem] flex items-center">
       <div className="flex h-14 items-center justify-between w-full px-4">
@@ -36,8 +38,8 @@ export default function Header() {
             to="/"
             className="mr-6 flex flex-row-reverse md:flex-row items-center space-x-2 w-[--sidebar-width] justify-between p-4 md:p-4"
           >
-            <Logo />
-            <SidebarTrigger className="-ml-1" />
+            {open && <Logo />}
+            <SidebarTrigger className=" duration-300" />
           </NavLink>
           <nav className="md:flex items-center space-x-2 text-sm font-medium hidden"></nav>
         </div>
@@ -57,15 +59,16 @@ export default function Header() {
                     variant="ghost"
                     className="relative space-x-2 rounded-full md:rounded md:p-2"
                   >
-                    <Avatar className="h-8 w-8">
-                      <AvatarFallback>EN</AvatarFallback>
+                    <Avatar className="h-10 w-10">
+                      <AvatarImage src="https://github.com/shadcn.png" />
+                      <AvatarFallback>EO</AvatarFallback>
                     </Avatar>
                     <div className="hidden md:flex flex-col space-y-1 text-left">
                       <p className="text-sm font-medium leading-none">
-                        ELMANSOUR NABIL
+                        ELKHIARI Othmane
                       </p>
                       <p className="text-xs leading-none text-muted-foreground">
-                        nabil.elmansour@alsa.ma
+                        othmane.elkhiari@alsa.ma
                       </p>
                     </div>
                   </Button>

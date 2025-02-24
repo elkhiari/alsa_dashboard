@@ -5,7 +5,7 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: #f1f4f6;
     --foreground: 0 0% 3.9%;
 
     --card: 0 0% 100%;
@@ -63,7 +63,7 @@
   }
 
   .dark {
-    --background: 0 0% 3.9%;
+    --background: #f1f4f6;
     --foreground: 0 0% 98%;
 
     --card: 0 0% 3.9%;
@@ -109,7 +109,7 @@
 @layer base {
   * {
     @apply border-border;
-    font-family: "Gabarito", "Inter", "Oswald", "Poppins", "Rubik", sans-serif;
+    /* font-family: "Gabarito", "Inter", "Oswald", "Poppins", "Rubik", sans-serif; */
   }
   body {
     @apply bg-background text-foreground;

@@ -37,29 +37,47 @@ const data = {
   navMain: [
     {
       title: "Dashboard",
-      url: "/",
+      url: "#",
       icon: LayoutDashboard,
-      //   isActive: true,
+      items: [
+        {
+          title: "analytics",
+          url: "/",
+        },
+        {
+          title: "overview",
+          url: "/overview",
+        },
+        {
+          title: "performance",
+          url: "/performance",
+        },
+      ],
     },
-    // {
-    //   title: "Models",
-    //   url: "#",
-    //   icon: Bot,
-    //   items: [
-    //     {
-    //       title: "Models",
-    //       url: "/models",
-    //     },
-    //     {
-    //       title: "Explorer",
-    //       url: "/explorer",
-    //     },
-    //     {
-    //       title: "Quantum",
-    //       url: "/quantum",
-    //     },
-    //   ],
-    // },
+    {
+      title: "Models",
+      url: "#",
+      icon: Bot,
+      items: [
+        {
+          title: "Models",
+          url: "/models",
+        },
+        {
+          title: "Explorer",
+          url: "/explorer",
+        },
+        {
+          title: "Quantum",
+          url: "/quantum",
+        },
+      ],
+    },
+    {
+      title: "Design Engineering",
+      url: "#",
+      icon: Frame,
+    },
     // {
     //   title: "Documentation",
     //   url: "#",

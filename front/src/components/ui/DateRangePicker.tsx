@@ -24,13 +24,13 @@ export function DateRangePicker({
   onEndDateChange,
 }: DateRangePickerProps) {
   return (
-    <>
+    <div className="flex space-x-4 w-full max-w-md">
       <Popover>
         <PopoverTrigger asChild>
           <Button
             variant={"outline"}
             className={cn(
-              "w-full justify-start text-left font-normal text-[#007bff] hover:text-[#007bff]/40",
+              "w-full justify-start text-left font-normal  bg-white",
               !startDate && "text-muted-foreground"
             )}
           >
@@ -53,7 +53,7 @@ export function DateRangePicker({
           <Button
             variant={"outline"}
             className={cn(
-              "w-full justify-start text-left font-normal text-[#007bff] hover:text-[#007bff]/40",
+              "w-full justify-start text-left font-normal bg-white",
               !endDate && "text-muted-foreground"
             )}
           >
@@ -70,7 +70,7 @@ export function DateRangePicker({
           />
         </PopoverContent>
       </Popover>
-    </>
+    </div>
   );
 }
 

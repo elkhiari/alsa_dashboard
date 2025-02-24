@@ -36,39 +36,53 @@ export function NavMain({
   return (
     <SidebarGroup>
       <SidebarGroupLabel
-        className="text-xs font-semibold text-blue-800
+        className="text-xs font-bold text-blue-800
        uppercase"
       >
-        Platform
+        Menu
       </SidebarGroupLabel>
       <SidebarMenu>
-        {items.map((item) => (
+        {items.map(({ title, url, icon: Icon, isActive, items }) => (
           <Collapsible
-            key={item.title}
+            key={title}
             asChild
-            defaultOpen={item.isActive}
+            defaultOpen={isActive}
             className="group/collapsible"
           >
             <SidebarMenuItem>
-              {item.items && item.items.length > 0 ? (
+              {items && items.length > 0 ? (
                 <>
                   <CollapsibleTrigger asChild>
-                    <SidebarMenuButton
-                      tooltip={item.title}
-                      isActive={path === item.url}
-                    >
-                      {item.icon && <item.icon />}
-                      <span>{item.title}</span>
-                      <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                    <SidebarMenuButton tooltip={title}>
+                      {Icon && (
+                        <div>
+                          <Icon
+                            width={20}
+                            height={20}
+                            className="text-gray-300 mr-2"
+                          />
+                        </div>
+                      )}
+                      <span className="text-md font-bold">{title}</span>
+                      <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90 text-gray-300" />
                     </SidebarMenuButton>
                   </CollapsibleTrigger>
                   <CollapsibleContent>
                     <SidebarMenuSub>
-                      {item.items?.map((subItem) => (
+                      {items?.map((subItem) => (
                         <SidebarMenuSubItem key={subItem.title}>
                           <SidebarMenuSubButton asChild>
                             <Link to={subItem.url}>
-                              <span>{subItem.title}</span>
+                              <span
+                                className={
+                                  "text-md  w-full p-2 rounded-lg " +
+                                  (path === subItem.url
+                                    ? "text-blue-600 bg-blue-100 font-semibold"
+                                    : "text-gray-600 group-hover:text-gray-800")
+                                }
+                              >
+                                {subItem.title}
+                              </span>
                             </Link>
                           </SidebarMenuSubButton>
                         </SidebarMenuSubItem>
@@ -79,30 +93,28 @@ export function NavMain({
               ) : (
                 <SidebarMenuButton
                   asChild
-                  isActive={path === item.url}
-                  className={
-                    path === item.url ? "!bg-blue-100 text-blue-600" : ""
-                  }
+                  isActive={path === url}
+                  className={path === url ? "!bg-blue-100 text-blue-600" : ""}
                 >
-                  <Link to={item.url}>
-                    {item.icon && (
-                      <item.icon
-                        className={
-                          path === item.url
-                            ? "text-blue-600"
-                            : "text-gray-600 group-hover:text-gray-800"
-                        }
-                        aria-hidden="true"
-                      />
+                  <Link to={url}>
+                    {Icon && (
+                      <div>
+                        <Icon
+                          width={20}
+                          height={20}
+                          className="text-gray-300 mr-2"
+                        />
+                      </div>
                     )}
                     <span
                       className={
-                        path === item.url
+                        "text-md font-bold " +
+                        (path === url
                           ? "text-blue-600"
-                          : "text-gray-600 group-hover:text-gray-800"
+                          : "text-gray-600 group-hover:text-gray-800")
                       }
                     >
-                      {item.title}
+                      {title}
                     </span>
                   </Link>
                 </SidebarMenuButton>

@@ -13,7 +13,18 @@ interface InfoCardProps {
   subtext?: string;
   className?: string;
   iconClass?: string;
+  textColor?: string;
 }
+
+// interface InfoCardProps {
+//   n: string; // Assuming 'n' is a string (e.g., currency symbol, unit)
+//   title: string;
+//   value: number;
+//   icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
+//   subtext?: string; // Optional subtext
+//   className?: string; // Optional additional class names
+//   iconClass?: string; // Optional additional class names for the icon container
+// }
 
 export function InfoCard({
   n,
@@ -23,58 +34,78 @@ export function InfoCard({
   subtext,
   className,
   iconClass,
+  textColor,
 }: InfoCardProps) {
-  const [isActive, setisActive] = useState(false);
+  const [isActive, setisActive] = useState(false); // Remove if not used
+
   return (
-    <motion.div
-      initial={{}}
-      animate={{}}
-      transition={{ duration: 0.2 }}
+    <div
       className={
-        "relative overflow-hidden border bg-card text-card-foreground shadow rounded-md " +
-        className
+        "relative overflow-hidden border bg-card text-card-foreground shadow-md rounded-md flex flex-col justify-between items-center p-2 " +
+        (className || "")
       }
     >
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 w-full">
-        <motion.div
-          initial={{
-            // scale: 0.6,
-            transform: "translateX(20px) translateY(20px) scale(0.6)",
-          }}
-          animate={{
-            scale: 1.05,
-            transform: "translateX(0px) translateY(0px) scale(1.05)",
-          }}
-          whileHover={{ scale: 1.8, width: "50%" }}
-          transition={{
-            duration: 0.2,
-            type: "spring",
-            stiffness: 300,
-          }}
+      <div className="flex flex-row items-center space-x-2 justify-between w-full p-4  h-full ">
+        <div className={" space-x-2 justify-between flex items-center "}>
+          <Icon className="h-8 w-8 text-gray-300" />
+          <h3 className="text-md font-bold leading-none tracking-tight h-full text-gray-600">
+            {title}
+          </h3>
+          {subtext && (
+            <p className="text-sm text-muted-foreground">{subtext}</p>
+          )}
+        </div>
+        <div>
+          <h4 className={"text-2xl font-bold w-full h-full " + textColor}>
+            <CountUp end={value} duration={1} separator=" " /> {n}
+          </h4>
+        </div>
+      </div>
+
+      {n === "%" && (
+        <div className="w-full h-2 bg-black/20 rounded-full ">
+          <motion.div
+            initial={{ width: 0 }}
+            animate={{ width: `${value}%` }}
+            className="h-2 bg-blue-600 rounded-full"
+          />
+        </div>
+      )}
+    </div>
+  );
+
+  return (
+    <div
+      className={
+        "relative overflow-hidden border bg-card text-card-foreground shadow rounded-md flex justify-between items-center " +
+        (className || "")
+      }
+    >
+      <CardHeader className="flex flex-row items-center space-x-2 bg-red-600">
+        <div
           className={
-            " rounded-full p-2 absolute -bottom-6 -right-6 w-36 h-36 flex place-content-center place-items-center bg-red-600/30 " +
-            iconClass
+            "rounded-full p-2 w-14 h-14 flex place-content-center place-items-center bg-red-600/30 " +
+            (iconClass || "")
           }
         >
-          <Icon className={"h-20 w-20 "} strokeWidth={1.5} />
-        </motion.div>
-        <motion.h3 className="text-sm font-medium  leading-none tracking-tight">
-          {title}
-        </motion.h3>
-      </CardHeader>
-      <CardContent>
-        <div className=" flex items-end">
-          <h2 className=" min-w-16 text-2xl font-bold">
-            <CountUp end={value} duration={1} separator=" " className="" />
-          </h2>
-          <span className="text-xl font-semibold ml-2">{n}</span>
+          <Icon className="h-8 w-8" strokeWidth={1.5} />
         </div>
-        <p className="text-xs ">{subtext}</p>
+        <h3 className="text-sm font-medium leading-none tracking-tight h-full">
+          {title}
+        </h3>
+      </CardHeader>
+
+      <CardContent className="bg-black/30 flex flex-col items-start w-full ">
+        <h2 className="text-2xl font-bold w-full h-full items-center flex flex-row justify-between">
+          <CountUp end={value} duration={1} separator=" " /> {n}
+        </h2>
+        {subtext && (
+          <span className="text-sm text-muted-foreground">{subtext}</span>
+        )}
       </CardContent>
-    </motion.div>
+    </div>
   );
 }
-
 export function InfoCardSkeleton(props: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
